@@ -145,15 +145,51 @@ def Ingredients():
             else:
                 st.error(f"API request failed. Status code: {response.status_code}")
 
+def Review():
+    with st.container():
+        st.title("Rate My Website")
+
+        # Create an empty list to store ratings
+        def save_ratings(ratings):
+            with open("ratings.txt", "a") as file:
+                for rating in ratings:
+                    file.write(f"{rating}\n")
+
+      
+
+        # Create an empty list to store ratings
+        ratings = []
+
+        # Ask users to rate the website
+        user_rating = st.slider("Rate our website from 1 (worst) to 10 (best)", 1, 10)
+
+        # Display the user's rating
+        st.write(f"You rated our website as: {user_rating}")
+
+        # Add the user's rating to the list of ratings
+        ratings.append(user_rating)
+
+        # Save the ratings to a file
+        save_ratings(ratings)
+
+        # Calculate and display the average rating
+        if len(ratings) > 0:
+            average_rating = sum(ratings) / len(ratings)
+            st.write(f"Average Rating: {average_rating:.2f}")
+
 
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ("Home", "Recipes", "Ingredients"))
+page = st.sidebar.radio("Go to", ("Home", "Recipes", "Ingredients", "Review"))
 if page == "Home":
     Home()
 elif page == "Recipes":
     Recipes()
 elif page == "Ingredients":
     Ingredients()
+elif page == "Review":
+    Review()
+
+
 
 
 
