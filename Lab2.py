@@ -187,7 +187,8 @@ def Review():
                     feedback_data = file.readlines()
                     st.subheader("User Feedback")
                     for feedback in feedback_data:
-                        st.write(feedback)
+                        st.markdown(f"> {feedback.strip()}", unsafe_allow_html=True)
+                        st.markdown("---")
 
             st.title("Feedback Section")
 
@@ -202,6 +203,9 @@ def Review():
                 save_feedback(user_feedback)
                 st.success("Thank you for your feedback! It has been submitted.")
 
+            # Display existing feedback
+            display_feedback()
+
 
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ("Home", "Recipes", "Ingredients", "Review"))
@@ -213,5 +217,7 @@ elif page == "Ingredients":
     Ingredients()
 elif page == "Review":
     Review()
+
+
 
 
