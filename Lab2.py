@@ -19,7 +19,7 @@ def Home():
 
     # Load and display your logo image with container width
 
-# what i do
+    # what i do
 
     with (st.container()):
         with open("styles.css") as f:
