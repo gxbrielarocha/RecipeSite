@@ -1,0 +1,15 @@
+/* custom.css */
+body {
+    background-color: #000; /* Black background */
+    font-family: Arial, sans-serif;
+    color: #fff; /* White text color for the entire app */
+}
+
+h1, h2, h3, h4, h5, h6 {
+    color: #FFE5B4; /* Complementary color to blue and black for headers (e.g., orange) */
+}
+
+h1 {
+    color: #cc5500
+; /* Custom color for h1 headers (e.g., purple) */
+}

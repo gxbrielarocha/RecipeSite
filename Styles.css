@@ -1,10 +1,7 @@
-/* styles.css */
 body {
-    text-align: center; /* Center-align all text */
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
 }
-.stApp {
-    display: flex;
-    justify-content: center; /* Center-align the entire Streamlit app */
-    align-items: center;
-    flex-direction: column;
+h1 {
+    color: #007BFF;
 }
