@@ -1,12 +1,38 @@
 import streamlit as st
 import requests
 import re
+import time
+
 
 # !/usr/bin/python
 
 
 st.set_page_config(layout="centered")
 # header
+with open("Styles.css", "r") as f:
+    Styles_css = f.read()
+
+# Apply the custom CSS using st.markdown
+st.markdown(f'<style>{Styles_css}</style>', unsafe_allow_html=True)
+
+
+# Read the custom CSS file
+with open("header.css", "r") as f:
+    custom_css = f.read()
+
+# Apply the custom CSS using st.markdown
+st.markdown(f'<style>{custom_css}</style>', unsafe_allow_html=True)
+
+# Create your Streamlit content
+
+
+
+
+# Create your Streamlit content
+
+
+# Create your Streamlit content
+
 
 def Home():
     with st.container():
@@ -15,7 +41,7 @@ def Home():
 
         logo_image = "https://i.imgur.com/QtiDzrN.png"  # Replace with the actual path to your logo image
         st.image(logo_image, width=200)
-        st.markdown("<h1 style='text-align: center; color: white;'>Home To All The Recipes You Will Ever Need</h1>", unsafe_allow_html=True)
+        st.markdown("<h1 style='text-align: center; color: light blue;'>Home To All The Recipes You Will Ever Need</h1>", unsafe_allow_html=True)
 
     # Load and display your logo image with container width
 
@@ -206,9 +232,58 @@ def Review():
             # Display existing feedback
             display_feedback()
 
+def MiniGame():
+    with st.container():
+        def get_random_recipe():
+            # Define your Spoonacular API key
+            api_key = "71648f5810894c3d905128dc3a497553"  # Replace with your actual API key
+
+            # Define the API endpoint URL
+            api_url = "https://api.spoonacular.com/recipes/random"
+
+            # Define query parameters (e.g., cuisine, diet, etc.) if needed
+            params = {
+                "apiKey": api_key,
+                "number": 1,  # Get one random recipe
+            }
+
+            # Make the API request
+            response = requests.get(api_url, params=params)
+
+            if response.status_code == 200:
+                recipe_data = response.json()
+                return recipe_data["recipes"][0]
+            else:
+                return None
+
+        # Create a new page for the Recipe Roulette mini-game
+        st.title("Recipe Roulette Mini-Game")
+
+        # HTML code for the spinning wheel animation
+
+
+        # Display the spinning wheel animation
+
+
+        # Normal button to trigger the random recipe retrieval
+        if st.button("Spin for a Random Recipe"):
+            # Simulate spinning animation
+
+            st.text("Spinning...")
+
+            random_recipe = get_random_recipe()
+
+            if random_recipe:
+                st.title(random_recipe["title"])
+                st.image(random_recipe["image"])
+                st.write(random_recipe["instructions"])
+                st.write(f"Full recipe details: [Link]({random_recipe['sourceUrl']})")
+            else:
+                st.error("Failed to fetch a random recipe. Please try again later.")
+
 
 st.sidebar.title("Navigation")
-page = st.sidebar.radio("Go to", ("Home", "Recipes", "Ingredients", "Review"))
+page = st.sidebar.radio("Go to", ("Home", "Recipes", "Ingredients", "Review", "MiniGame"))
 if page == "Home":
     Home()
 elif page == "Recipes":
@@ -217,6 +292,9 @@ elif page == "Ingredients":
     Ingredients()
 elif page == "Review":
     Review()
+elif page == "MiniGame":
+    MiniGame()
+
 
 
 
