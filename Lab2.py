@@ -155,7 +155,7 @@ def Review():
                 for rating in ratings:
                     file.write(f"{rating}\n")
 
-      
+
 
         # Create an empty list to store ratings
         ratings = []
@@ -177,6 +177,31 @@ def Review():
             average_rating = sum(ratings) / len(ratings)
             st.write(f"Average Rating: {average_rating:.2f}")
 
+            def save_feedback(feedback):
+                with open("feedback.txt", "a") as file:
+                    file.write(f"{feedback}\n")
+
+            # Function to retrieve and display feedback
+            def display_feedback():
+                with open("feedback.txt", "r") as file:
+                    feedback_data = file.readlines()
+                    st.subheader("User Feedback")
+                    for feedback in feedback_data:
+                        st.write(feedback)
+
+            st.title("Feedback Section")
+
+            # Text area for users to leave feedback
+            user_feedback = st.text_area("Leave your feedback here:", max_chars=200)
+
+            # Button to submit feedback
+            submit_feedback = st.button("Submit Feedback")
+
+            if submit_feedback and user_feedback:
+                # Save the user's feedback to a file
+                save_feedback(user_feedback)
+                st.success("Thank you for your feedback! It has been submitted.")
+
 
 st.sidebar.title("Navigation")
 page = st.sidebar.radio("Go to", ("Home", "Recipes", "Ingredients", "Review"))
@@ -188,8 +213,5 @@ elif page == "Ingredients":
     Ingredients()
 elif page == "Review":
     Review()
-
-
-
 
 
