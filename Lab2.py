@@ -1,8 +1,10 @@
 import streamlit as st
 import requests
-import plotly as px
+import re
+import plotly.express as px
 import pandas as pd
 import numpy as np
+
 
 
 st.set_page_config(layout="centered")
@@ -198,7 +200,7 @@ def Recipes():
             else:
                 st.error(f"API request failed. Status code: {response.status_code}")
         # Sample data (replace this with your recipe data)
-    
+
 
 
 
@@ -341,42 +343,7 @@ def Review():
             main()
 
 
-def MiniGame():
-    with st.container():
-            def initialize_board(size=5):
-                ingredients = ['Flour', 'Sugar', 'Eggs', 'Milk', 'Butter', 'Chocolate', 'Vanilla', 'Baking Powder', 'Salt']
-                board = pd.DataFrame(np.random.choice(ingredients, size=(size, size)), columns=[f"Col{i+1}" for i in range(size)])
-                return board
 
-# Function to display the game board
-            def display_board(board):
-                st.dataframe(board)
-
-# Main Streamlit app
-            def main():
-                st.title("Recipe Discovery Game")
-
-    # Initialize game board
-                board_size = 5
-                recipe_board = initialize_board(size=board_size)
-
-    # Display initial board
-                st.write("Game Board:")
-                display_board(recipe_board)
-
-    # Player selects ingredient to find
-                st.write("Player's Goal:")
-                ingredient_to_find = st.selectbox("Match Ingredient Below With Top Left Cell | Changes Every Time:", ['Flour', 'Sugar', 'Eggs', 'Milk', 'Butter', 'Chocolate', 'Vanilla', 'Baking Powder', 'Salt'])
-
-    # Check if the selected ingredient matches the first cell in the board
-                if ingredient_to_find == recipe_board.iloc[0, 0]:
-                    st.success("Congratulations! You've found the correct ingredient. You win!")
-                else:
-                    st.warning("Oops! That's not the correct ingredient. Keep trying!")
-
-# Run the app
-            if __name__ == "__main__":
-                main()
 
 
 st.markdown(
@@ -418,8 +385,7 @@ elif page == "Ingredients":
     Ingredients()
 elif page == "Review":
     Review()
-elif page == "MiniGame":
-    MiniGame()
+
 
 
 
